@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.9</version>
+		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gblanco.microservices</groupId>
@@ -14,8 +14,8 @@
 	<name>currency-conversion-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
-		<spring-cloud.version>2021.0.5</spring-cloud.version>
+		<java.version>17</java.version>
+		<spring-cloud.version>2023.0.0</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -35,6 +35,22 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-micrometer</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-observation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-tracing-bridge-otel</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.opentelemetry</groupId>
+			<artifactId>opentelemetry-exporter-zipkin</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -43,6 +59,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
 	<dependencyManagement>
@@ -63,12 +83,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+					<image>
+						<name>gblanco/mmv2-${project.artifactId}:${project.version}</name>
+					</image>
+					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
 				</configuration>
 			</plugin>
 		</plugins>
