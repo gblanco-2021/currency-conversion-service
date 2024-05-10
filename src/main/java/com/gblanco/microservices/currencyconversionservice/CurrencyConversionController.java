@@ -40,6 +40,7 @@ public class CurrencyConversionController {
             @PathVariable String to,
             @PathVariable BigDecimal quantity
     ) {
+        log.info("calculateCurrencyConversion called with {} to {} with {}",from, to, quantity);
         log.info("calling data defautl por 8000");
         Map<String, String> uriVariables = new HashMap<>();
         uriVariables.put("from", from);
