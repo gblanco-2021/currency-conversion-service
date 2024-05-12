@@ -71,6 +71,7 @@ public class CurrencyConversionController {
             @PathVariable BigDecimal quantity
     ) {
 
+        log.info("Calling feign");
         CurrencyConversion response = proxy.retrieveExchangeValue(from, to);
 
         CurrencyConversion currencyConversion = new CurrencyConversion();
